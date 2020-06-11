@@ -11,8 +11,20 @@ ul.types {
 }
 
 .fade {
-  opacity: 0.7;
+  opacity: 0.89;
 }
 .fade:hover {
   opacity: 1;
+}
+
+.zoom-in {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  -webkit-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+
+.zoom-in:hover {
+  -webkit-transform: scale(1);
+  transform: scale(1);
 }

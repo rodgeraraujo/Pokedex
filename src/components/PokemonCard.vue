@@ -4,6 +4,7 @@
             <div class="image" :style="{ 'background-color': pokemonColor }">
                 <span class="pokemon-number">#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</span>
                 <img
+                    class="zoom-in"
                     crossorigin="anonymous"
                     ref="picture"
                     width="10"
@@ -87,6 +88,9 @@ figcaption {
     position: relative;
     display: grid;
     overflow: hidden;
+    -webkit-box-shadow: -1px 4px 10px -3px rgba(0, 0, 0, 0.44);
+    -moz-box-shadow: -1px 4px 10px -3px rgba(0, 0, 0, 0.44);
+    box-shadow: -1px 4px 10px -3px rgba(0, 0, 0, 0.44);
 }
 
 .image img {
