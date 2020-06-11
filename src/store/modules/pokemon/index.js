@@ -1,12 +1,13 @@
-import { PokemonService } from "@/services/api";
+import { PokemonService, PokemonDescriptionService } from "@/services/api";
 
-import { FETCH_POKEMON } from "@/store/type/actions";
-import { SET_POKEMON } from "@/store/type/mutations";
+import { FETCH_POKEMON, FETCH_POKEMON_DESCRIPTION } from "@/store/type/actions";
+import { SET_POKEMON, SET_POKEMON_DESCRIPTION } from "@/store/type/mutations";
 
 const state = {
   pokemon: [],
   isLoading: true,
-  pokemonCount: 0
+  pokemonCount: 0,
+  pokemonDescription: {}
 };
 
 const getters = {
@@ -18,6 +19,9 @@ const getters = {
   },
   isLoading(state) {
     return state.isLoading;
+  },
+  pokemonDescription(state) {
+    return state.pokemonDescription;
   }
 };
 
@@ -33,6 +37,17 @@ const actions = {
       .catch(error => {
         throw new Error(error);
       });
+  },
+  [FETCH_POKEMON_DESCRIPTION]({ commit }, slug) {
+    return PokemonDescriptionService.get(slug)
+      .then(({ data }) => {
+        commit(SET_POKEMON_DESCRIPTION, {
+          pokemonDescription: data
+        });
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
   }
 };
 
@@ -41,6 +56,9 @@ const mutations = {
     state.pokemon = pokemon;
     state.pokemonCount = pokemonCount;
     state.isLoading = false;
+  },
+  [SET_POKEMON_DESCRIPTION](state, { pokemonDescription }) {
+    state.pokemonDescription = pokemonDescription;
   }
 };
 
