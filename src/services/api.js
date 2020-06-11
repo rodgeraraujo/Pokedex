@@ -2,6 +2,8 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 
+import pkg from "../../package.json";
+
 import { API_BASE } from "@/config";
 
 const ApiService = {
@@ -11,9 +13,7 @@ const ApiService = {
   },
 
   setHeader() {
-    Vue.axios.defaults.headers.common[
-      "From"
-    ] = `https://github.com/rodgeraraujo/pokedex`;
+    Vue.axios.defaults.headers.common["From"] = `${pkg.repository.url}`;
   },
 
   query(resource, params) {
@@ -34,5 +34,11 @@ export default ApiService;
 export const PokemonService = {
   get() {
     return ApiService.get("pokemon");
+  }
+};
+
+export const PokemonDescriptionService = {
+  get(slug) {
+    return ApiService.get("pokemon", slug);
   }
 };
