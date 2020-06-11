@@ -34,6 +34,9 @@ export default ApiService;
 export const PokemonService = {
   get() {
     return ApiService.get("pokemon");
+  },
+  query(offset, limit) {
+    return ApiService.query(`pokemon`, { params: { offset, limit } });
   }
 };
 
