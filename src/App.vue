@@ -4,9 +4,18 @@
             <p>pokedex</p>
 
             <p>pokemon counter: {{pokemonCount}}</p>
+            <!-- <input
+                type="text"
+                v-model.trim="search"
+                placeholder="Search pokemon..."
+                @keyup="getPokemonList"
+            />-->
+            <br />
+            <br />
+
             <div class="cards">
                 <div v-for="(p, index) in pokemon" :key="index">
-                    <PokemonCard :pokemon="p" :pokemonId="index" />
+                    <PokemonCard :pokemon="p" />
                 </div>
             </div>
         </div>
@@ -24,6 +33,12 @@ export default {
     components: {
         PokemonCard
     },
+    data() {
+        return {
+            pokemonList: [],
+            search: ""
+        };
+    },
     computed: {
         ...mapGetters(["pokemonCount", "isLoading", "pokemon"])
     },
@@ -33,12 +48,26 @@ export default {
     methods: {
         fetchPokemon() {
             this.$store.dispatch(FETCH_POKEMON);
+            this.pokemonList = this.pokemon;
         }
+        // getPokemonList() {
+        //     if (this.search) {
+        //         this.pokemonList = this.pokemon.filter(p =>
+        //             p.name.toLowerCase().includes(this.search.toLowerCase())
+        //         );
+        //         console.log(this.pokemonList);
+        //     } else {
+        //         this.pokemonList = this.pokemon;
+        //     }
+        // }
     }
 };
 </script>
 
 <style>
+body {
+    background-color: #404667;
+}
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
