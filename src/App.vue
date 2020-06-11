@@ -1,65 +1,18 @@
 <template>
     <div id="app">
-        <div v-if="!isLoading">
-            <p>pokedex</p>
-
-            <p>pokemon counter: {{pokemonCount}}</p>
-            <!-- <input
-                type="text"
-                v-model.trim="search"
-                placeholder="Search pokemon..."
-                @keyup="getPokemonList"
-            />-->
-            <br />
-            <br />
-
-            <div class="cards">
-                <div v-for="(p, index) in pokemon" :key="index">
-                    <PokemonCard :pokemon="p" />
-                </div>
-            </div>
-        </div>
+        <component :is="layout">
+            <router-view :layout.sync="layout" />
+        </component>
     </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { FETCH_POKEMON } from "@/store/type/actions";
-
-import PokemonCard from "@/components/PokemonCard";
-
 export default {
-    name: "App",
-    components: {
-        PokemonCard
-    },
+    name: `App`,
     data() {
         return {
-            pokemonList: [],
-            search: ""
+            layout: `div`
         };
-    },
-    computed: {
-        ...mapGetters(["pokemonCount", "isLoading", "pokemon"])
-    },
-    mounted() {
-        this.fetchPokemon();
-    },
-    methods: {
-        fetchPokemon() {
-            this.$store.dispatch(FETCH_POKEMON);
-            this.pokemonList = this.pokemon;
-        }
-        // getPokemonList() {
-        //     if (this.search) {
-        //         this.pokemonList = this.pokemon.filter(p =>
-        //             p.name.toLowerCase().includes(this.search.toLowerCase())
-        //         );
-        //         console.log(this.pokemonList);
-        //     } else {
-        //         this.pokemonList = this.pokemon;
-        //     }
-        // }
     }
 };
 </script>
