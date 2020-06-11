@@ -4,6 +4,9 @@ import store from "./store";
 
 import ApiService from "./services/api";
 
+import "@styles/pokemon-types.css";
+import "@styles/global.css";
+
 ApiService.init();
 
 Vue.config.productionTip = false;

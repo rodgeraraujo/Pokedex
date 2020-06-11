@@ -1,0 +1,18 @@
+/* types badge css */
+ul.types li {
+  display: inline-block;
+  text-align: center;
+  padding-left: 5px;
+  font-size: 1.2em;
+}
+
+ul.types {
+  padding-inline-start: 0px;
+}
+
+.fade {
+  opacity: 0.7;
+}
+.fade:hover {
+  opacity: 1;
+}

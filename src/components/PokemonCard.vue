@@ -1,15 +1,21 @@
 <template>
     <div class="cards">
-        <div class="card" v-if="isFetched">
+        <div class="card fade" v-if="isFetched">
             <div class="image" :style="{ 'background-color': pokemonColor }">
+                <span class="pokemon-number">#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</span>
                 <img
                     crossorigin="anonymous"
                     ref="picture"
                     width="10"
                     :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
                 />
-                <figcaption>#{{pokemonDetails.id}} - {{ pokemonDetails.name }}</figcaption>
+                <figcaption>
+                    <strong>{{ pokemonDetails.name }}</strong>
+                </figcaption>
             </div>
+            <ul class="types">
+                <TypeBadge v-for="(t, index) in pokemonDetails.types" :key="index" :type="t.type" />
+            </ul>
         </div>
     </div>
 </template>
@@ -19,8 +25,13 @@ import ColorThief from "colorthief";
 
 import { PokemonDescriptionService } from "@/services/api";
 
+import TypeBadge from "@/components/TypeBadge";
+
 export default {
     name: "PokemonCard",
+    components: {
+        TypeBadge
+    },
     props: ["pokemon"],
     data() {
         return {
@@ -44,7 +55,6 @@ export default {
                 });
 
             this.adaptativeBackground();
-            console.log(this.pokemonDetails);
         },
         adaptativeBackground() {
             const colorThief = new ColorThief();
@@ -58,7 +68,9 @@ export default {
 <style>
 figcaption {
     position: unset;
-    text-shadow: -1px 3px 2px rgba(89, 85, 81, 0.18);
+    color: white;
+    text-shadow: #2b303a 0px 0px 1px;
+    -webkit-font-smoothing: antialiased;
     line-height: 1.6;
     top: 1%;
     bottom: 0;
@@ -93,9 +105,10 @@ img {
 }
 
 .card {
+    cursor: pointer;
     border-radius: 10px;
     transition: 0.5s;
-    background: white;
+    background: #7e83a8;
     margin-bottom: 2em;
 }
 
@@ -130,6 +143,16 @@ img {
     flex: 0 1 calc(20% - 1em);
 }
 
+.pokemon-number {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    text-shadow: #2b303a 0px 1px 1px;
+    line-height: 1.6;
+}
 @media (max-width: 500px) {
     .image {
         width: 450px;
