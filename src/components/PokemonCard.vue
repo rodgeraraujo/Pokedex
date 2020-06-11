@@ -159,13 +159,13 @@ img {
 }
 @media (max-width: 500px) {
     .image {
-        width: 450px;
-        height: 450px;
+        width: 150px;
+        height: 150px;
     }
 
     .image img {
-        width: 450px;
-        height: 450px;
+        width: 130px;
+        height: 130px;
     }
 
     .cards {

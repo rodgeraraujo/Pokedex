@@ -4,11 +4,12 @@
             <input type="checkbox" id="nav-check" />
             <div class="nav-header">
                 <div class="nav-title">
-                    <img
+                    Pokedex
+                    <!-- <img
                         style="width:100px; margin-left: -500px"
                         src="https://cdn.bulbagarden.net/upload/4/4b/Pok%C3%A9dex_logo.png"
                         alt="Pokedex"
-                    />
+                    />-->
                 </div>
             </div>
             <div class="nav-btn">
