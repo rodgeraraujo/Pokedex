@@ -1,6 +1,10 @@
 <template>
     <layout name="LayoutDefault">
-        <div v-if="!isLoading">
+        <div v-if="!isFetched">
+            Loading Please wait...
+            <DotLoader />
+        </div>
+        <div v-else>
             <!-- <input
                 type="text"
                 v-model.trim="search"
@@ -25,15 +29,18 @@ import { FETCH_POKEMON } from "@/store/type/actions";
 
 import Layout from "@/layouts/Layout";
 import PokemonCard from "@/components/PokemonCard";
+import DotLoader from "@/components/DotLoader";
 
 export default {
     name: "Home",
     components: {
         PokemonCard,
-        Layout
+        Layout,
+        DotLoader
     },
     data() {
         return {
+            isFetched: false,
             pokemonList: [],
             search: ""
         };
@@ -48,6 +55,8 @@ export default {
         fetchPokemon() {
             this.$store.dispatch(FETCH_POKEMON);
             this.pokemonList = this.pokemon;
+
+            setTimeout(() => (this.isFetched = true), 1000);
         }
         // getPokemonList() {
         //     if (this.search) {

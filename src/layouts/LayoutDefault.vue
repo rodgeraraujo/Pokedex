@@ -4,7 +4,7 @@
         <main class="LayoutDefault__main">
             <slot />
         </main>
-        <footer class="LayoutDefault__footer">&copy; Awesome Company</footer>
+        <footer class="LayoutDefault__footer">Pokedex! &copy; Rogério Araújo</footer>
     </div>
 </template>
 <script>
