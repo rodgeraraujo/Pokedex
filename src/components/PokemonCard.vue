@@ -150,7 +150,7 @@ img {
 .pokemon-number {
     position: absolute;
     top: 12px;
-    left: 12px;
+    left: 180px;
     font-size: 15px;
     font-weight: 700;
     color: white;

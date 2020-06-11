@@ -28,3 +28,16 @@ ul.types {
   -webkit-transform: scale(1);
   transform: scale(1);
 }
+
+.card-panel-icon {
+  float: left;
+  font-size: 48px;
+}
+
+.card-panel-icon-wrapper {
+  float: left;
+  margin: 14px 0 0 14px;
+  padding: 16px;
+  transition: all 0.38s ease-out;
+  border-radius: 6px;
+}
