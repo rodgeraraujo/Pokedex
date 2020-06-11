@@ -1,7 +1,7 @@
 <template>
     <div class="cards">
         <div class="card">
-            <div class="image">
+            <div class="image" :style="{ 'background-color': pokemonColor }">
                 <img
                     crossorigin="anonymous"
                     ref="picture"
@@ -17,13 +17,32 @@
 </template>
 
 <script>
+import ColorThief from "colorthief";
+
 export default {
     name: "PokemonCard",
-    props: ["pokemon", "pokemonId"]
+    props: ["pokemon", "pokemonId"],
+    data() {
+        return {
+            pokemonColor: []
+        };
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.adaptativeBackground();
+        });
+    },
+    methods: {
+        adaptativeBackground() {
+            const colorThief = new ColorThief();
+            var color = colorThief.getColor(this.$refs["picture"]);
+            this.pokemonColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+        }
+    }
 };
 </script>
 
-<style scoped>
+<style>
 .image {
     color: #e1ede7;
     border: 1px solid #eee;
