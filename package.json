@@ -1,5 +1,6 @@
 {
   "name": "pokedex",
+  "description": "A Pokedex made with VueJs.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,6 +8,20 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodgeraraujo/pokedex.git"
+  },
+  "keywords": [
+    "vue",
+    "pokedex"
+  ],
+  "author": "Rogério Araújo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rodgeraraujo/pokedex/issues"
+  },
+  "homepage": "https://github.com/rodgeraraujo/pokedex#readme",
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
