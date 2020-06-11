@@ -25,7 +25,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { FETCH_POKEMON } from "@/store/type/actions";
+import { FETCH_POKEMON, FETCH_POKEMON_QUERY } from "@/store/type/actions";
 
 import Layout from "@/layouts/Layout";
 import PokemonCard from "@/components/PokemonCard";
@@ -49,7 +49,7 @@ export default {
         ...mapGetters(["pokemonCount", "isLoading", "pokemon"])
     },
     mounted() {
-        this.fetchPokemon();
+        this.scroll(this.pokemon);
     },
     methods: {
         fetchPokemon() {
@@ -57,6 +57,33 @@ export default {
             this.pokemonList = this.pokemon;
 
             setTimeout(() => (this.isFetched = true), 1000);
+        },
+        fetchPokemonQuery() {
+            this.$store.dispatch(FETCH_POKEMON_QUERY, {
+                offset: this.pokemon.length,
+                limit: 20
+            });
+            console.log(this.$store.state.pokemon);
+        },
+        scroll() {
+            let bottomOfWindow;
+            window.onscroll = () => {
+                bottomOfWindow =
+                    document.documentElement.scrollTop + window.innerHeight ===
+                    document.documentElement.offsetHeight;
+                if (bottomOfWindow) {
+                    this.fetchPokemonQuery();
+                }
+            };
+
+            window.ontouchmove = () => {
+                bottomOfWindow =
+                    document.documentElement.scrollTop + window.innerHeight ===
+                    document.documentElement.offsetHeight;
+                if (bottomOfWindow) {
+                    this.fetchPokemonQuery();
+                }
+            };
         }
         // getPokemonList() {
         //     if (this.search) {
@@ -68,6 +95,9 @@ export default {
         //         this.pokemonList = this.pokemon;
         //     }
         // }
+    },
+    beforeMount() {
+        this.fetchPokemon();
     }
 };
 </script>

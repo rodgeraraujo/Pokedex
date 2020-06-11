@@ -1,9 +1,6 @@
 <template>
     <div id="page-loading">
         <div class="three-balls">
-            <div>Loading pokedex, wait...</div>
-            <br />
-            <br />
             <div class="ball ball1"></div>
             <div class="ball ball2"></div>
             <div class="ball ball3"></div>
