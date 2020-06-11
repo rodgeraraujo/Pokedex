@@ -1,9 +1,6 @@
 <template>
     <layout name="LayoutDefault">
         <div v-if="!isLoading">
-            <p>pokedex</p>
-
-            <p>pokemon counter: {{pokemonCount}}</p>
             <!-- <input
                 type="text"
                 v-model.trim="search"
