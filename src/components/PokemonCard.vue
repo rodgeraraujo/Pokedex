@@ -1,6 +1,6 @@
 <template>
     <div class="cards">
-        <div class="card fade" v-if="isFetched">
+        <div class="card fade" v-if="pokemonDetails">
             <div class="image" :style="{ 'background-color': pokemonColor }">
                 <span class="pokemon-number">#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</span>
                 <img
@@ -8,6 +8,7 @@
                     crossorigin="anonymous"
                     ref="picture"
                     width="10"
+                    @load="adaptativeBackground()"
                     :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
                 />
                 <figcaption>
@@ -37,8 +38,7 @@ export default {
     data() {
         return {
             pokemonDetails: null,
-            pokemonColor: "",
-            isFetched: false
+            pokemonColor: ""
         };
     },
     mounted() {
@@ -49,13 +49,10 @@ export default {
             await PokemonDescriptionService.get(this.pokemon.name)
                 .then(({ data }) => {
                     this.pokemonDetails = data;
-                    this.isFetched = true;
                 })
                 .catch(error => {
                     throw new Error(error);
                 });
-
-            this.adaptativeBackground();
         },
         adaptativeBackground() {
             const colorThief = new ColorThief();
