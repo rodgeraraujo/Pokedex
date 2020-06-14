@@ -45,3 +45,9 @@ export const PokemonDescriptionService = {
     return ApiService.get("pokemon", slug);
   }
 };
+
+export const PokemonSpeciesService = {
+  get(slug) {
+    return ApiService.get("pokemon-species", slug);
+  }
+};
