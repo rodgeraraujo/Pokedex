@@ -75,6 +75,19 @@
                     </div>
                 </div>
             </div>
+            <div class="wrapper" v-else>
+                <div class="pokemon-notfound">
+                    <div class="pokemon-404">
+                        <img src="@img/404.png" alt />
+                    </div>
+
+                    <h3 class="notfound-title">No pokemon was found for "{{$route.params.name}}".</h3>
+
+                    <router-link class="clean-link button-notfound" to="/">
+                        <strong>← Go back home</strong>
+                    </router-link>
+                </div>
+            </div>
         </div>
     </layout>
 </template>
@@ -100,7 +113,8 @@ export default {
         return {
             pokemon: null,
             cardBg: "",
-            isFetched: false
+            isFetched: false,
+            pokemon4o4: false
         };
     },
     mounted() {
@@ -114,6 +128,7 @@ export default {
                 .then(({ data }) => {
                     this.pokemon = data;
                     this.isFetched = true;
+                    if (this.pokemon != null) this.pokemon4o4 = true;
                 })
                 .catch(error => {
                     throw new Error(error);
@@ -129,53 +144,6 @@ export default {
 </script>
 
 <style scooped>
-.mass {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mass p {
-    color: gray;
-    font-size: 15px;
-    margin-bottom: -15px;
-}
-
-.mass .weight {
-    padding-right: 40px;
-}
-
-.mass p:first-of-type {
-    color: #334750;
-    font-weight: 700;
-    margin-top: 0;
-}
-
-.mass p:last-of-type {
-    color: #68818c;
-    margin-bottom: 5px;
-}
-
-/* .pokemon-mass {
-    position: static;
-    margin-top: 50px;
-    font-size: 18px;
-}
-
-.pokemon-mass {
-    margin-top: 10px;
-}
-
-.pokemon-mass p:first-of-type {
-    color: #334750;
-    font-weight: 700;
-    margin-top: 0;
-}
-
-.pokemon-mass p:last-of-type {
-    color: #68818c;
-    margin-bottom: 5px;
-} */
 *,
 *:before,
 *:after {
@@ -183,7 +151,6 @@ export default {
 }
 body {
     background-size: cover;
-    /* background-image: url(../assets/images/bg.png); */
     font: 14px/20px "Lato", Arial, sans-serif;
     color: #9e9e9e;
     margin-top: 30px;
@@ -197,10 +164,9 @@ body {
     float: left;
     width: 50%;
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
+    height: 300px;
 }
 
-/* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
@@ -219,6 +185,54 @@ body {
 .wrapper:focus {
     outline: 0;
 }
+.pokemon-notfound {
+    background: #f9f9f9;
+    width: 100%;
+    height: 400px;
+    display: inline-block;
+    margin: auto;
+    border-radius: 19px;
+    position: relative;
+    text-align: center;
+    box-shadow: -1px 15px 30px -12px black;
+    z-index: 9999;
+}
+
+.pokemon-notfound .pokemon-404 img {
+    position: absolute;
+    display: block;
+    border: 0;
+    left: 255px;
+    top: 55px;
+    width: 200px;
+    height: auto;
+}
+
+.notfound-title {
+    position: absolute;
+    left: 200px;
+    top: 150px;
+    color: #2c3f51;
+    font-size: 17px;
+}
+
+.button-notfound {
+    display: block;
+    position: relative;
+    height: 50px;
+    top: 250px;
+    text-align: center;
+    /* color: #fff; */
+    line-height: 50px;
+    font-size: 18px;
+    padding: 0 70px;
+    white-space: nowrap;
+}
+
+.button-notfound:hover {
+    border-color: #fff;
+}
+
 .pokemon-card {
     background: white;
     width: 100%;
@@ -323,6 +337,33 @@ body {
     height: 0;
 }
 
+.mass {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mass p {
+    color: gray;
+    font-size: 15px;
+    margin-bottom: -15px;
+}
+
+.mass .weight {
+    padding-right: 40px;
+}
+
+.mass p:first-of-type {
+    color: #334750;
+    font-weight: 700;
+    margin-top: 0;
+}
+
+.mass p:last-of-type {
+    color: #68818c;
+    margin-bottom: 5px;
+}
+
 @media (max-width: 630px) {
     .pokemon-container {
         margin: auto;
@@ -332,6 +373,16 @@ body {
     .card-image--pokemon {
         background-size: 80%;
         background-position: -10% 1%;
+    }
+
+    .pokemon-notfound .pokemon-404 img {
+        left: 90px;
+        top: 55px;
+    }
+
+    .notfound-title {
+        left: 35px;
+        top: 150px;
     }
 }
 </style>
