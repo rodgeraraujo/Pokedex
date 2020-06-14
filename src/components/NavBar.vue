@@ -1,17 +1,6 @@
 <template>
-    <div>
-        <div class="nav">
-            <input type="checkbox" id="nav-check" />
-            <div class="nav-header">
-                <div class="nav-title">
-                    Pokedex
-                    <!-- <img
-                        style="width:100px; margin-left: -500px"
-                        src="https://cdn.bulbagarden.net/upload/4/4b/Pok%C3%A9dex_logo.png"
-                        alt="Pokedex"
-                    />-->
-                </div>
-            </div>
+    <nav class="navbar">
+        <span class="navbar-toggle" id="js-navbar-toggle">
             <div class="nav-btn">
                 <label for="nav-check">
                     <span></span>
@@ -19,120 +8,148 @@
                     <span></span>
                 </label>
             </div>
-
-            <div class="nav-links">
-                <router-link to="/">Home</router-link>
-                <router-link to="github">Github</router-link>
-            </div>
-        </div>
-    </div>
+        </span>
+        <a href="#" class="logo">Pokedex!</a>
+        <ul class="main-nav" id="js-menu">
+            <li>
+                <router-link class="nav-links" to="/">Home</router-link>
+            </li>
+            <li>
+                <router-link class="nav-links" to="/github">Github</router-link>
+            </li>
+        </ul>
+    </nav>
 </template>
 
 <script>
 export default {
-    name: "NavBar"
+    name: "NavBar",
+    mounted() {
+        this.toggleMeny();
+    },
+    methods: {
+        toggleMeny() {
+            let mainNav = document.getElementById("js-menu");
+            let navBarToggle = document.getElementById("js-navbar-toggle");
+
+            navBarToggle.addEventListener("click", function() {
+                mainNav.classList.toggle("active");
+            });
+        }
+    }
 };
 </script>
 
 <style scoped>
-.nav {
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.navbar {
+    font-size: 18px;
+    background: #4a4d68;
     border-radius: 10px;
-    height: 50px;
-    width: 100%;
-    background-color: #6c739b;
-    position: relative;
+    border: 1px solid #3a3f68;
+    padding-bottom: 10px;
 }
 
-.nav > .nav-header {
-    display: inline;
+.main-nav {
+    list-style-type: none;
+    display: none;
 }
 
-.nav > .nav-header > .nav-title {
+.nav-links,
+.logo {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.main-nav li {
+    text-align: center;
+    margin: 15px auto;
+}
+
+.logo {
     display: inline-block;
     font-size: 22px;
-    color: #fff;
-    padding: 10px 10px 10px 10px;
+    margin-top: 10px;
+    margin-left: 20px;
 }
 
-.nav > .nav-btn {
-    display: none;
+.navbar-toggle {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 24px;
 }
 
-.nav > .nav-links {
-    display: inline;
-    float: right;
-    font-size: 18px;
+.active {
+    display: block;
 }
 
-.nav > .nav-links > a {
+.navbar-toggle > .nav-btn {
     display: inline-block;
-    padding: 13px 10px 13px 10px;
-    text-decoration: none;
-    color: #efefef;
+    position: absolute;
+    right: 0px;
+    top: 16px;
+}
+.navbar-toggle > .nav-btn > label {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    padding: 13px;
 }
 
-.nav > .nav-links > a:hover {
-    position: relative;
-    padding: 10px;
-    padding: 10px;
-    border-radius: 10px;
-
-    background-color: #5e679b;
+.navbar-toggle > .nav-btn > label > span {
+    display: block;
+    width: 25px;
+    height: 10px;
+    border-top: 2px solid #eee;
 }
 
-.nav > #nav-check {
-    display: none;
-}
+@media screen and (min-width: 630px) {
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 0;
+        height: 70px;
+        align-items: center;
+    }
 
-@media (max-width: 600px) {
-    .nav > .nav-btn {
-        display: inline-block;
-        position: absolute;
-        right: 0px;
-        top: 0px;
+    .main-nav {
+        display: flex;
+        margin-right: 30px;
+        flex-direction: row;
+        justify-content: flex-end;
     }
-    .nav > .nav-btn > label {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        padding: 13px;
+
+    .main-nav li {
+        margin: 0;
     }
-    .nav > .nav-btn > label:hover,
-    .nav #nav-check:checked ~ .nav-btn > label {
-        border-radius: 10px;
-        height: 24px;
-        background-color: #5e679b;
+
+    .nav-links {
+        margin-left: 40px;
     }
-    .nav > .nav-btn > label > span {
-        display: block;
-        width: 25px;
-        height: 10px;
-        border-top: 2px solid #eee;
+
+    .logo {
+        margin-top: 0;
     }
-    .nav > .nav-links {
-        border-radius: 10px;
-        position: absolute;
-        display: block;
-        width: 100%;
-        height: 50px;
-        background-color: #5e679b;
-        height: 0px;
-        transition: all 0.3s ease-in;
-        overflow-y: hidden;
-        top: 50px;
-        left: 0px;
-        z-index: 1;
+
+    .navbar-toggle {
+        display: none;
     }
-    .nav > .nav-links > a {
-        display: block;
-        width: 100%;
-    }
-    .nav > #nav-check:not(:checked) ~ .nav-links {
-        height: 0px;
-    }
-    .nav > #nav-check:checked ~ .nav-links {
-        height: calc(100vh - 50px);
-        overflow-y: auto;
+
+    .logo:hover,
+    .nav-links:hover {
+        color: rgba(255, 255, 255, 1);
     }
 }
 </style>
