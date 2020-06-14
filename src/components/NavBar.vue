@@ -2,7 +2,7 @@
     <div>
         <header>
             <a class="logo" href="/">
-                <img src="@img/pokedex.svg" alt="logo" />
+                <img src="@img/pokedex.png" alt="logo" />
             </a>
             <nav>
                 <ul class="nav-links">
@@ -65,6 +65,7 @@ header {
 }
 
 .logo {
+    width: 145px;
     cursor: pointer;
 }
 

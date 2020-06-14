@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <div class="box-pikachu">
-            <img src="@img/404.png" alt />
+            <img src="@img/404.png" alt="error 404" />
         </div>
         <div class="box-description">
             <div class="box-description-container">

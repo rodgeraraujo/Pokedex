@@ -3,7 +3,7 @@
         <div id="container" class="card-container">
             <div class="cards" v-if="pokemon">
                 <div v-for="(p, index) in pokemon" :key="index">
-                    <router-link class="clean-link" :to="'/pokedex/'+ p.name">
+                    <router-link class="clean-link" :to="'/pokedex/'+ p.name" :name="p.name">
                         <PokemonCard :pokemon="p" />
                     </router-link>
                 </div>

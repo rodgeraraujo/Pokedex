@@ -9,6 +9,7 @@
                         crossorigin="anonymous"
                         ref="picture"
                         width="10"
+                        :alt="pokemonDetails.name"
                         @load="adaptativeBackground()"
                         :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
                     />

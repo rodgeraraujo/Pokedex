@@ -80,7 +80,7 @@
             <div class="wrapper" v-else>
                 <div class="pokemon-notfound" v-if="pokemon4o4">
                     <div class="pokemon-404">
-                        <img src="@img/404.png" alt />
+                        <img src="@img/404.png" alt="error 404" />
                     </div>
 
                     <h3 class="notfound-title">No pokemon was found for "{{$route.params.name}}".</h3>
