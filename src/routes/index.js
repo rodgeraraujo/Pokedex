@@ -36,4 +36,32 @@ const router = new Router({
   ]
 });
 
+const scrollableElementId = "container";
+const scrollPositions = Object.create(null);
+
+router.beforeEach((to, from, next) => {
+  let element = document.getElementById(scrollableElementId);
+  if (element !== null) {
+    scrollPositions[from.name] = element.scrollTop;
+  }
+
+  console.log(element);
+
+  next();
+});
+
+window.addEventListener("popstate", () => {
+  let currentRouteName = router.history.current.name;
+
+  console.log(currentRouteName);
+
+  let element = document.getElementById(scrollableElementId);
+  if (element !== null && currentRouteName in scrollPositions) {
+    setTimeout(
+      () => (element.scrollTop = scrollPositions[currentRouteName]),
+      50
+    );
+  }
+});
+
 export default router;

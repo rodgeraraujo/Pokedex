@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="wrapper" v-else>
-                <div class="pokemon-notfound">
+                <div class="pokemon-notfound" v-if="pokemon4o4">
                     <div class="pokemon-404">
                         <img src="@img/404.png" alt />
                     </div>
@@ -131,7 +131,8 @@ export default {
                     if (this.pokemon != null) this.pokemon4o4 = true;
                 })
                 .catch(error => {
-                    throw new Error(error);
+                    this.pokemon4o4 = true;
+                    console.log(error);
                 });
         },
         cardBackground() {

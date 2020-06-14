@@ -2,8 +2,12 @@
     <div class="LayoutDefault">
         <NavBar />
         <main class="LayoutDefault__main">
-            <slot />
+            <keep-alive include="home">
+                <slot />
+            </keep-alive>
         </main>
+        <br />
+        <br />
         <footer class="LayoutDefault__footer">Pokedex! &copy; Rogério Araújo</footer>
     </div>
 </template>
@@ -17,13 +21,6 @@ export default {
 };
 </script>
 <style>
-/* .LayoutDefault {
-    max-width: 42em;
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: 1em;
-    padding-left: 1em;
-} */
 .LayoutDefault__nav {
     color: white;
     padding-top: 1em;
@@ -33,10 +30,6 @@ export default {
 .LayoutDefault__nav router-link {
     color: whitesmoke;
 }
-/* .LayoutDefault__main {
-    padding-top: 1.5em;
-    padding-bottom: 2em;
-} */
 .LayoutDefault__footer {
     color: white;
     padding-top: 1em;
