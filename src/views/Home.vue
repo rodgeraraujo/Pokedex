@@ -1,24 +1,15 @@
 <template>
     <layout name="LayoutDefault">
-        <div v-if="!isFetched">
-            Loading Please wait...
-            <DotLoader />
-        </div>
-        <div v-else>
-            <!-- <input
-                type="text"
-                v-model.trim="search"
-                placeholder="Search pokemon..."
-                @keyup="getPokemonList"
-            />-->
-            <br />
-            <br />
-
-            <div class="cards">
+        <div class="card-container">
+            <div class="cards" v-if="pokemon">
                 <div v-for="(p, index) in pokemon" :key="index">
-                    <PokemonCard :pokemon="p" />
+                    <router-link class="clean-link" :to="'/pokemon/'+ p.name">
+                        <PokemonCard :pokemon="p" />
+                    </router-link>
                 </div>
             </div>
+            <br />
+            <!-- <button v-if="pokemon" :click="loadMoreProducts">load more</button> -->
         </div>
     </layout>
 </template>
@@ -29,20 +20,16 @@ import { FETCH_POKEMON, FETCH_POKEMON_QUERY } from "@/store/type/actions";
 
 import Layout from "@/layouts/Layout";
 import PokemonCard from "@/components/PokemonCard";
-import DotLoader from "@/components/DotLoader";
 
 export default {
     name: "Home",
     components: {
         PokemonCard,
-        Layout,
-        DotLoader
+        Layout
     },
     data() {
         return {
-            isFetched: false,
-            pokemonList: [],
-            search: ""
+            noMorePokemon: false
         };
     },
     computed: {
@@ -54,47 +41,42 @@ export default {
     methods: {
         fetchPokemon() {
             this.$store.dispatch(FETCH_POKEMON);
-            this.pokemonList = this.pokemon;
-
-            setTimeout(() => (this.isFetched = true), 1000);
         },
         fetchPokemonQuery() {
-            this.$store.dispatch(FETCH_POKEMON_QUERY, {
-                offset: this.pokemon.length,
-                limit: 20
-            });
-            console.log(this.$store.state.pokemon);
+            if (this.pokemon.length <= 807) {
+                this.$store.dispatch(FETCH_POKEMON_QUERY, {
+                    offset: this.pokemon.length,
+                    limit: 20
+                });
+                console.log(this.$store.state.pokemon);
+            } else {
+                this.noMorePokemon = true;
+            }
         },
         scroll() {
-            let bottomOfWindow;
-            window.onscroll = () => {
-                bottomOfWindow =
-                    document.documentElement.scrollTop + window.innerHeight ===
-                    document.documentElement.offsetHeight;
-                if (bottomOfWindow) {
-                    this.fetchPokemonQuery();
-                }
-            };
+            setTimeout(() => {
+                let bottomOfWindow;
+                window.onscroll = () => {
+                    bottomOfWindow =
+                        document.documentElement.scrollTop +
+                            window.innerHeight ===
+                        document.documentElement.offsetHeight;
+                    if (bottomOfWindow) {
+                        this.fetchPokemonQuery();
+                    }
+                };
 
-            window.ontouchmove = () => {
-                bottomOfWindow =
-                    document.documentElement.scrollTop + window.innerHeight ===
-                    document.documentElement.offsetHeight;
-                if (bottomOfWindow) {
-                    this.fetchPokemonQuery();
-                }
-            };
+                window.ontouchmove = () => {
+                    bottomOfWindow =
+                        document.documentElement.scrollTop +
+                            window.innerHeight ===
+                        document.documentElement.offsetHeight;
+                    if (bottomOfWindow) {
+                        this.fetchPokemonQuery();
+                    }
+                };
+            }, 1000);
         }
-        // getPokemonList() {
-        //     if (this.search) {
-        //         this.pokemonList = this.pokemon.filter(p =>
-        //             p.name.toLowerCase().includes(this.search.toLowerCase())
-        //         );
-        //         console.log(this.pokemonList);
-        //     } else {
-        //         this.pokemonList = this.pokemon;
-        //     }
-        // }
     },
     beforeMount() {
         this.fetchPokemon();
@@ -103,4 +85,13 @@ export default {
 </script>
 
 <style>
+.clean-link {
+    color: inherit;
+    text-decoration: inherit;
+}
+.card-container {
+    position: relative;
+    top: 15px;
+    min-height: 500px;
+}
 </style>

@@ -1,8 +1,8 @@
 <template>
     <div class="cards">
         <div class="card fade" v-if="pokemonDetails">
-            <div class="image" :style="{ 'background-color': pokemonColor }">
-                <span class="pokemon-number">#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</span>
+            <div class="image ripple" :style="{ 'background-color': pokemonColor }">
+                <!-- <span class="pokemon-number">#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</span> -->
                 <img
                     class="zoom-in"
                     crossorigin="anonymous"
@@ -38,7 +38,8 @@ export default {
     data() {
         return {
             pokemonDetails: null,
-            pokemonColor: ""
+            pokemonColor: "",
+            renderComponent: false
         };
     },
     mounted() {
@@ -58,6 +59,7 @@ export default {
             const colorThief = new ColorThief();
             var color = colorThief.getColor(this.$refs["picture"]);
             this.pokemonColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            this.renderComponent = true;
         }
     }
 };
@@ -75,8 +77,8 @@ figcaption {
 }
 
 .image {
-    width: 215px;
-    height: 215px;
+    width: 235px;
+    height: 235px;
     color: #e1ede7;
     border: 1px solid #eee;
     border-radius: 10px;
@@ -120,10 +122,10 @@ img {
 
 .card:hover {
     border-radius: 10px;
-    box-shadow: 3px 3px 8px;
+    box-shadow: 0px 3px 8px;
     transition: 0.5s;
-    -webkit-box-shadow: 3px 3px 8px;
-    -moz-box-shadow: 3px 3px 8px;
+    -webkit-box-shadow: 0px 3px 8px;
+    -moz-box-shadow: 0px 3px 8px;
 }
 
 .card-content {
@@ -137,11 +139,13 @@ img {
 .cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .card {
     flex: 0 1 calc(20% - 1em);
+    transition: opacity 1.5s;
+    animation: 1s ease-out 0s 1 cardTransition;
 }
 
 .pokemon-number {
@@ -154,6 +158,18 @@ img {
     text-shadow: #2b303a 0px 1px 1px;
     line-height: 1.6;
 }
+
+@keyframes cardTransition {
+    0% {
+        /* transition: opacity 200ms linear 320ms; */
+        transform: 200ms ease-out 320ms;
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
 @media (max-width: 500px) {
     .image {
         width: 150px;
