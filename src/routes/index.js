@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Home from "@/views/Home.vue";
-import PokeView from "@/views/PokeView.vue";
+import Pokemon from "@/views/Pokemon.vue";
 
 Vue.use(Router);
 
@@ -16,8 +16,8 @@ const router = new Router({
     },
     {
       path: "/pokemon/:name",
-      name: "PokeView",
-      component: PokeView
+      name: "Pokemon",
+      component: Pokemon
     },
     {
       path: "/github",
