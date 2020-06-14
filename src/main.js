@@ -5,10 +5,14 @@ import router from "./routes";
 
 import ApiService from "./services/api";
 
+import titleMixin from "./util/titleMixin";
+
 import "@styles/pokemon-types.css";
 import "@styles/global.css";
 
 ApiService.init();
+
+Vue.mixin(titleMixin);
 
 Vue.config.productionTip = false;
 

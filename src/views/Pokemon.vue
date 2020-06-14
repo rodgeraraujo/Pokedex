@@ -107,6 +107,7 @@ import PokeDescription from "@/components/PokemonDescription";
 
 export default {
     name: "Pokemon",
+    title: "Pokemon Description",
     components: {
         Layout,
         TypeBadge,

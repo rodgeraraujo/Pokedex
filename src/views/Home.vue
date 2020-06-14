@@ -28,6 +28,7 @@ import PokemonCard from "@/components/PokemonCard";
 
 export default {
     name: "Home",
+    title: "Home",
     components: {
         PokemonCard,
         Layout
