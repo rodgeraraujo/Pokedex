@@ -1,14 +1,17 @@
 <template>
     <div class="LayoutDefault">
         <NavBar />
-        <main class="LayoutDefault__main">
+        <main class="LayoutDefault-main">
             <keep-alive include="home">
                 <slot />
             </keep-alive>
         </main>
         <br />
         <br />
-        <footer class="LayoutDefault__footer">Pokedex! &copy; Rogério Araújo</footer>
+        <footer class="LayoutDefault-footer">
+            Pokedex! &copy;
+            <a class="clean-link" href="https://rogerioaraujo.me">Rogério Araújo</a>
+        </footer>
     </div>
 </template>
 <script>
@@ -21,19 +24,25 @@ export default {
 };
 </script>
 <style>
-.LayoutDefault__nav {
+.LayoutDefault-nav {
     color: white;
     padding-top: 1em;
     padding-bottom: 1em;
     border-bottom: 1px solid #c0c0c0;
 }
-.LayoutDefault__nav router-link {
+.LayoutDefault-nav router-link {
     color: whitesmoke;
 }
-.LayoutDefault__footer {
+.LayoutDefault-footer {
     color: white;
     padding-top: 1em;
     padding-bottom: 1em;
+    font-weight: bold;
+    text-align: center;
     border-top: 1px solid #c0c0c0;
+}
+
+.LayoutDefault-footer a:hover {
+    color: #444868;
 }
 </style>

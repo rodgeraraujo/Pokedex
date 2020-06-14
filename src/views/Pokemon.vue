@@ -243,7 +243,7 @@ body {
     position: relative;
     text-align: center;
     box-shadow: -1px 15px 30px -12px black;
-    z-index: 9999;
+    /* z-index: 9999; */
 }
 .card-image {
     position: relative;
