@@ -1,23 +1,29 @@
 <template>
     <div class="cards">
-        <div class="card fade" v-if="pokemonDetails">
-            <div class="image ripple" :style="{ 'background-color': pokemonColor }">
-                <!-- <span class="pokemon-number">#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</span> -->
-                <img
-                    class="zoom-in"
-                    crossorigin="anonymous"
-                    ref="picture"
-                    width="10"
-                    @load="adaptativeBackground()"
-                    :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
-                />
-                <figcaption>
-                    <strong>{{ pokemonDetails.name }}</strong>
-                </figcaption>
+        <div class="card-animation">
+            <div class="card fade" v-if="pokemonDetails">
+                <div class="image ripple" :style="{ 'background-color': pokemonColor }">
+                    <!-- <span class="pokemon-number">#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</span> -->
+                    <img
+                        class="zoom-in"
+                        crossorigin="anonymous"
+                        ref="picture"
+                        width="10"
+                        @load="adaptativeBackground()"
+                        :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
+                    />
+                    <figcaption>
+                        <strong>{{ pokemonDetails.name }}</strong>
+                    </figcaption>
+                </div>
+                <ul class="types">
+                    <TypeBadge
+                        v-for="(t, index) in pokemonDetails.types"
+                        :key="index"
+                        :type="t.type"
+                    />
+                </ul>
             </div>
-            <ul class="types">
-                <TypeBadge v-for="(t, index) in pokemonDetails.types" :key="index" :type="t.type" />
-            </ul>
         </div>
     </div>
 </template>
@@ -76,20 +82,26 @@ figcaption {
     bottom: 0;
 }
 
+.card-animation {
+    height: 280px;
+}
+
 .image {
     width: 235px;
     height: 235px;
+    background-color: #9194b0;
     color: #e1ede7;
     border: 1px solid #eee;
     border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 2px;
+    padding: 0 10px;
+    margin-bottom: -48px;
     position: relative;
     display: grid;
     overflow: hidden;
     -webkit-box-shadow: -1px 4px 10px -3px rgba(0, 0, 0, 0.44);
     -moz-box-shadow: -1px 4px 10px -3px rgba(0, 0, 0, 0.44);
     box-shadow: -1px 4px 10px -3px rgba(0, 0, 0, 0.44);
+    transition: 0.3s;
 }
 
 .image img {
@@ -108,6 +120,7 @@ img {
 }
 
 .card {
+    width: 235px;
     cursor: pointer;
     border-radius: 10px;
     transition: 0.5s;
@@ -120,12 +133,12 @@ img {
     text-decoration: none;
 }
 
+.image:hover {
+    margin-bottom: 2px;
+}
 .card:hover {
     border-radius: 10px;
-    box-shadow: 0px 3px 8px;
     transition: 0.5s;
-    -webkit-box-shadow: 0px 3px 8px;
-    -moz-box-shadow: 0px 3px 8px;
 }
 
 .card-content {
@@ -183,9 +196,18 @@ img {
     }
 
     .cards {
-        /* margin: 10%; */
-        /* width: 100%; */
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-animation {
+        height: 200px;
+    }
+    .card {
+        width: 150px;
+    }
+
+    .image {
+        margin-bottom: 2px;
     }
 }
 </style>

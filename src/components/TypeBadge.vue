@@ -36,9 +36,9 @@ span {
 .badge {
     color: #fff;
     border-radius: 10rem;
-
     display: inline-block;
     padding: 0.25em 0.4em;
+    margin-bottom: 5px;
     font-size: 75%;
     font-weight: 700;
     line-height: 1;
