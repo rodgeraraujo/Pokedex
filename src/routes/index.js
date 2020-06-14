@@ -3,6 +3,7 @@ import Router from "vue-router";
 
 import Home from "@/views/Home.vue";
 import Pokemon from "@/views/Pokemon.vue";
+import NotFound404 from "@/views/404.vue";
 
 Vue.use(Router);
 
@@ -15,7 +16,7 @@ const router = new Router({
       component: Home
     },
     {
-      path: "/pokemon/:name",
+      path: "/pokedex/:name",
       name: "Pokemon",
       component: Pokemon
     },
@@ -25,7 +26,13 @@ const router = new Router({
       beforeEnter() {
         location.href = "http://github.com/rodgeraraujo/pokedex";
       }
-    }
+    },
+    {
+      path: "/404",
+      name: "404",
+      component: NotFound404
+    },
+    { path: "*", redirect: "/404" }
   ]
 });
 
