@@ -34,7 +34,9 @@
                         </div>
                     </div>
 
-                    <div class="unit-description">Soft description here...</div>
+                    <div class="unit-description">
+                        <PokeDescription :pokemonName="pokemon.name" />
+                    </div>
                     <hr />
 
                     <div class="row">
@@ -101,13 +103,15 @@ import Layout from "@/layouts/Layout";
 
 import TypeBadge from "@/components/TypeBadge";
 import StatsBar from "@/components/StatsBar";
+import PokeDescription from "@/components/PokemonDescription";
 
 export default {
     name: "Pokemon",
     components: {
         Layout,
         TypeBadge,
-        StatsBar
+        StatsBar,
+        PokeDescription
     },
     data() {
         return {
