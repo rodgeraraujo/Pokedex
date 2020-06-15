@@ -24,7 +24,7 @@ A simple Web Pokedex made using vuejs + vuex, router and more.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/924e63e4-fedf-40e7-8aac-e434d5e049b3/deploy-status)](https://app.netlify.com/sites/web-pokedex/deploys)
 
-<img src=".github/mobile.gif" align="right" width="32%"/>
+<img src=".github/mobile2.gif" align="right" width="32%"/>
 
 ## Features
 
@@ -36,7 +36,6 @@ A simple Web Pokedex made using vuejs + vuex, router and more.
   - Effects when switching route views (some cases)
 - Single-file Vue Components
   - Hot-reload in development
-  - CSS extraction for production
 
 ### Pokedex!
 
@@ -65,7 +64,7 @@ If you want to contribute to a project and make it better, feel free to fork and
 
 #### Pokedex!
 
-- Seach box for home (has one offline, but not effective)
+- Search box for home (has one offline, but not effective)
 - Pokemon pages by generations
 
 > If you have any new functionality added or a bug to fix, feel free to improve the project.
