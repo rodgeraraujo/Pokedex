@@ -1,7 +1,7 @@
 <template>
     <layout name="LayoutDefault">
         <div class="pokemon-container">
-            <div class="wrapper" v-if="pokemon">
+            <div class="wrapper" v-if="pokemonDetails">
                 <div class="pokemon-card pokemon">
                     <div
                         class="card-image card-image--pokemon"
@@ -11,16 +11,20 @@
                             @load="cardBackground()"
                             crossorigin="anonymous"
                             ref="picture"
-                            :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemon.id }.png`"
+                            :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
                             alt="pokemon"
                         />
                     </div>
                     <div
                         class="card-level card-level--pokemon"
-                    >#{{ ('000'+pokemon.id).slice(-'000'.length)}}</div>
-                    <div class="unit-name">{{pokemon.name}}</div>
+                    >#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</div>
+                    <div class="unit-name">{{pokemonDetails.name}}</div>
                     <ul class="types">
-                        <TypeBadge v-for="(t, index) in pokemon.types" :key="index" :type="t.type" />
+                        <TypeBadge
+                            v-for="(t, index) in pokemonDetails.types"
+                            :key="index"
+                            :type="t.type"
+                        />
                     </ul>
 
                     <div class="mass">
@@ -35,19 +39,22 @@
                     </div>
 
                     <div class="unit-description">
-                        <PokeDescription :pokemonName="pokemon.name" />
+                        <PokeDescription :pokemonName="pokemonDetails.name" />
                     </div>
                     <hr />
 
                     <div class="row">
                         <div class="column">
                             <h3 class="stats-title">Stats</h3>
-                            <StatsBar :stats="pokemon.stats" :baseExp="pokemon.base_experience" />
+                            <StatsBar
+                                :stats="pokemonDetails.stats"
+                                :baseExp="pokemonDetails.base_experience"
+                            />
                         </div>
                         <div class="column">
                             <div class="unit-abilities">
                                 <h3 class="stats-title">Abilities</h3>
-                                <ul v-for="(a, index) in pokemon.abilities" :key="index">
+                                <ul v-for="(a, index) in pokemonDetails.abilities" :key="index">
                                     <li
                                         class="pokemon-ability"
                                         :style="{ 'background-color': cardBg, borderRadius: '5px', color: 'white', width: '100%' }"
@@ -61,17 +68,17 @@
 
                     <div class="unit-stats unit-stats--pokemon clearfix">
                         <div class="one-third">
-                            <div class="stat">{{pokemon.stats[0].base_stat}}</div>
-                            <div class="stat-value">{{pokemon.stats[0].stat.name}}</div>
+                            <div class="stat">{{pokemonDetails.stats[0].base_stat}}</div>
+                            <div class="stat-value">{{pokemonDetails.stats[0].stat.name}}</div>
                         </div>
 
                         <div class="one-third">
-                            <div class="stat">{{pokemon.stats[1].base_stat}}</div>
+                            <div class="stat">{{pokemonDetails.stats[1].base_stat}}</div>
                             <div class="stat-value">atk</div>
                         </div>
 
                         <div class="one-third no-border">
-                            <div class="stat">{{pokemon.stats[2].base_stat}}</div>
+                            <div class="stat">{{pokemonDetails.stats[2].base_stat}}</div>
                             <div class="stat-value">def</div>
                         </div>
                     </div>
@@ -97,7 +104,9 @@
 <script>
 import ColorThief from "colorthief";
 
-import { PokemonDescriptionService } from "@/services/api";
+// import { PokemonDescriptionService } from "@/services/api";
+import { FETCH_POKEMON_DESCRIPTION } from "@/store/type/actions";
+
 import conversions from "@/util/units";
 
 import Layout from "@/layouts/Layout";
@@ -117,55 +126,57 @@ export default {
     },
     data() {
         return {
-            pokemon: null,
             pokemonWeight: null,
             pokemonHeight: null,
             cardBg: "",
-            isFetched: false,
             pokemon4o4: false
         };
     },
-    mounted() {
-        this.fetchPokemonDetails();
+    computed: {
+        pokemonDetails() {
+            return this.$store.state.pokemon.pokemonDescription;
+        },
+        isPokemon() {
+            return this.$store.state.pokemon.isPokemon;
+        }
+    },
+    beforeMount() {
+        this.$store
+            .dispatch(FETCH_POKEMON_DESCRIPTION, this.$route.params.name)
+            .then(() => {
+                this.convertUnits(
+                    this.pokemonDetails.weight,
+                    this.pokemonDetails.height
+                );
+            })
+            .catch(err => {
+                this.pokemon4o4 = true;
+                console.log(err);
+            });
     },
     methods: {
-        async fetchPokemonDetails() {
-            var slug = this.$route.params.name;
-
-            await PokemonDescriptionService.get(slug)
-                .then(({ data }) => {
-                    this.pokemon = data;
-                    this.isFetched = true;
-                    if (this.pokemon != null) this.pokemon4o4 = true;
-                    this.convertUnits();
-                })
-                .catch(error => {
-                    this.pokemon4o4 = true;
-                    console.log(error);
-                });
-            return this;
-        },
         cardBackground() {
             const colorThief = new ColorThief();
             var color = colorThief.getColor(this.$refs["picture"]);
             this.cardBg = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
             return this;
         },
-        convertUnits() {
+        convertUnits(weight, height) {
+            console.log(weight, height);
+
             this.pokemonWeight = conversions.functions.converter(
                 "area",
                 "decimeter",
                 "meter",
-                this.pokemon.weight
+                weight
             );
 
             this.pokemonHeight = conversions.functions.converter(
                 "mass",
                 "hectogram",
                 "kilogramm",
-                this.pokemon.height
+                height
             );
-
             return this;
         }
     }

@@ -41,7 +41,7 @@ export default {
     },
     computed: {
         pokemon() {
-            return this.$store.getters.pokemon;
+            return this.$store.state.pokemon.pokemonList;
         }
     },
     created() {
@@ -59,8 +59,6 @@ export default {
                 this.noMorePokemon = true;
                 return;
             }
-
-            console.log(this.pokemon);
 
             this.$store.dispatch(FETCH_POKEMON_QUERY, {
                 offset: this.pokemon.length,
@@ -81,12 +79,12 @@ export default {
                 };
             }, 1000);
         },
-        loadMorePokemon() {
+        async loadMorePokemon() {
             var button = document.querySelector("#loadButton");
-            this.pokeCount += this.pokemon.length;
-            this.loadMoreText = "Loading pokemon...";
 
-            if (this.pokeCount >= 47) {
+            this.loadMoreText = "Load more ↓";
+
+            if (this.pokemon.length >= 807) {
                 this.loadMoreText = "No more pokemon to load :)";
                 return;
             }
@@ -107,7 +105,6 @@ export default {
 
             setTimeout(function() {
                 button.classList.remove("load");
-                this.loadMoreText = "No more pokemon to load :)";
             }, 1000);
         }
     }
