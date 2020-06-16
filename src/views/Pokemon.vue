@@ -25,11 +25,11 @@
 
                     <div class="mass">
                         <div class="weight">
-                            <p>{{pokemon.weight}} kg</p>
+                            <p>{{pokemonWeight}} kg</p>
                             <p>weight</p>
                         </div>
                         <div class="height">
-                            <p>{{pokemon.height}} m</p>
+                            <p>{{pokemonHeight}} m</p>
                             <p>height</p>
                         </div>
                     </div>
@@ -98,6 +98,7 @@
 import ColorThief from "colorthief";
 
 import { PokemonDescriptionService } from "@/services/api";
+import conversions from "@/util/units";
 
 import Layout from "@/layouts/Layout";
 
@@ -117,6 +118,8 @@ export default {
     data() {
         return {
             pokemon: null,
+            pokemonWeight: null,
+            pokemonHeight: null,
             cardBg: "",
             isFetched: false,
             pokemon4o4: false
@@ -134,16 +137,36 @@ export default {
                     this.pokemon = data;
                     this.isFetched = true;
                     if (this.pokemon != null) this.pokemon4o4 = true;
+                    this.convertUnits();
                 })
                 .catch(error => {
                     this.pokemon4o4 = true;
                     console.log(error);
                 });
+            return this;
         },
         cardBackground() {
             const colorThief = new ColorThief();
             var color = colorThief.getColor(this.$refs["picture"]);
             this.cardBg = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            return this;
+        },
+        convertUnits() {
+            this.pokemonWeight = conversions.functions.converter(
+                "area",
+                "decimeter",
+                "meter",
+                this.pokemon.weight
+            );
+
+            this.pokemonHeight = conversions.functions.converter(
+                "mass",
+                "hectogram",
+                "kilogramm",
+                this.pokemon.height
+            );
+
+            return this;
         }
     }
 };
