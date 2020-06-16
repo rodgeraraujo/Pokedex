@@ -176,7 +176,6 @@ img {
 
 @keyframes cardTransition {
     0% {
-        /* transition: opacity 200ms linear 320ms; */
         transform: 200ms ease-out 320ms;
         transform: translateX(-50%);
     }

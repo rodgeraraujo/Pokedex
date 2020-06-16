@@ -162,8 +162,6 @@ export default {
             return this;
         },
         convertUnits(weight, height) {
-            console.log(weight, height);
-
             this.pokemonWeight = conversions.functions.converter(
                 "area",
                 "decimeter",
@@ -221,7 +219,22 @@ body {
 .wrapper {
     padding-top: 65px;
     padding-bottom: 40px;
+    /* flex: 0 1 calc(20% - 1em); */
+    transition: opacity 1.5s;
+    animation: 1s ease-out 0s 1 wrapperTransaction;
 }
+
+@keyframes wrapperTransaction {
+    0% {
+        transition: opacity 200ms linear 320ms;
+        transform: 100ms ease-out 320ms;
+        transform: translateY(30%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
 .wrapper:focus {
     outline: 0;
 }
