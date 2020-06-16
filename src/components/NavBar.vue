@@ -1,9 +1,10 @@
 <template>
     <div>
         <header>
-            <a class="logo" href="/">
+            <router-link class="logo" to="/">
                 <img src="@img/pokedex.png" alt="logo" />
-            </a>
+            </router-link>
+
             <nav>
                 <ul class="nav-links">
                     <li>

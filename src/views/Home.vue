@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 import { FETCH_POKEMON, FETCH_POKEMON_QUERY } from "@/store/type/actions";
 
 import Layout from "@/layouts/Layout";
@@ -37,24 +36,31 @@ export default {
         return {
             noMorePokemon: false,
             pokeCount: 0,
-            loadMoreText: "Load more"
+            loadMoreText: ""
         };
     },
     computed: {
-        ...mapGetters(["pokemonCount", "isLoading", "pokemon"])
+        pokemon() {
+            return this.$store.getters.pokemon;
+        }
+    },
+    created() {
+        this.loadMoreText = "Load more.";
+    },
+    beforeMount() {
+        this.$store.dispatch(FETCH_POKEMON);
     },
     mounted() {
         this.scroll(this.pokemon);
     },
     methods: {
-        fetchPokemon() {
-            this.$store.dispatch(FETCH_POKEMON);
-        },
-        fetchPokemonQuery() {
+        loadPokemon() {
             if (this.pokemon.length >= 807) {
                 this.noMorePokemon = true;
                 return;
             }
+
+            console.log(this.pokemon);
 
             this.$store.dispatch(FETCH_POKEMON_QUERY, {
                 offset: this.pokemon.length,
@@ -70,42 +76,40 @@ export default {
                             window.innerHeight ===
                         document.documentElement.offsetHeight;
                     if (bottomOfWindow) {
-                        this.fetchPokemonQuery();
+                        this.loadMorePokemon();
                     }
                 };
-
-                // window.ontouchmove = () => {
-                //     bottomOfWindow =
-                //         document.documentElement.scrollTop +
-                //             window.innerHeight ===
-                //         document.documentElement.offsetHeight;
-                //     if (bottomOfWindow) {
-                //         this.fetchPokemonQuery();
-                //     }
-                // };
             }, 1000);
         },
-        async loadMorePokemon() {
+        loadMorePokemon() {
             var button = document.querySelector("#loadButton");
             this.pokeCount += this.pokemon.length;
             this.loadMoreText = "Loading pokemon...";
 
-            if (this.pokeCount >= 807) {
+            if (this.pokeCount >= 47) {
                 this.loadMoreText = "No more pokemon to load :)";
                 return;
             }
 
             button.classList.add("load");
-            this.fetchPokemonQuery();
+
+            this.$store
+                .dispatch(FETCH_POKEMON_QUERY, {
+                    offset: this.pokemon.length,
+                    limit: 20
+                })
+                .then(() => {
+                    if (this.pokemon.length >= 807) {
+                        this.noMorePokemon = true;
+                        return;
+                    }
+                });
 
             setTimeout(function() {
                 button.classList.remove("load");
-                this.loadMoreText = "Load more";
+                this.loadMoreText = "No more pokemon to load :)";
             }, 1000);
         }
-    },
-    beforeMount() {
-        this.fetchPokemon();
     }
 };
 </script>
@@ -123,7 +127,7 @@ button {
     font-size: 15px;
     padding: 10px;
 
-    border-radius: 4px;
+    border-radius: 50px;
     color: white;
     cursor: pointer;
     display: flex;
