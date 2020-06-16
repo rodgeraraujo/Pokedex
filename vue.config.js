@@ -3,7 +3,7 @@ const path = require("path");
 module.exports = {
   pages: {
     index: {
-      entry: "src/main.js",
+      entry: "src/entry-client.js",
       template: "public/index.html",
       filename: "index.html",
       title: "Pokedex! - A simple pokedex made using VueJs"
@@ -17,5 +17,6 @@ module.exports = {
         "@img": path.resolve(__dirname, "src/assets/images/")
       }
     }
-  }
+  },
+  productionSourceMap: false
 };

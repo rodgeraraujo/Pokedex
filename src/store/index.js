@@ -6,9 +6,11 @@ import species from "@/store/modules/species";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  modules: {
-    pokemon,
-    species
-  }
-});
+export function createStore() {
+  return new Vuex.Store({
+    modules: {
+      pokemon,
+      species
+    }
+  });
+}

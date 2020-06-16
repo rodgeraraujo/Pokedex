@@ -7,33 +7,22 @@ import NotFound404 from "@/views/404.vue";
 
 Vue.use(Router);
 
-const router = new Router({
-  mode: "history",
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: Home
-    },
-    {
-      path: "/pokedex/:name",
-      name: "Pokemon",
-      component: Pokemon
-    },
-    {
-      path: "/github",
-      name: "github",
-      beforeEnter() {
-        location.href = "http://github.com/rodgeraraujo/pokedex";
-      }
-    },
-    {
-      path: "/404",
-      name: "404",
-      component: NotFound404
-    },
-    { path: "*", redirect: "/404" }
-  ]
-});
-
-export default router;
+export function createRouter() {
+  return new Router({
+    mode: "history",
+    scrollBehavior: () => ({ y: 0 }),
+    routes: [
+      { path: "/", name: "home", component: Home },
+      { path: "/pokedex/:name", name: "Pokemon", component: Pokemon },
+      {
+        path: "/github",
+        name: "github",
+        beforeEnter() {
+          location.href = "http://github.com/rodgeraraujo/pokedex";
+        }
+      },
+      { path: "/404", name: "404", component: NotFound404 },
+      { path: "*", redirect: "/404" }
+    ]
+  });
+}

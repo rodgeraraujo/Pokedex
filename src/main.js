@@ -1,7 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
-import store from "./store";
-import router from "./routes";
+
+import { createStore } from "./store";
+import { createRouter } from "./routes";
 
 import ApiService from "./services/api";
 
@@ -16,8 +17,15 @@ Vue.mixin(titleMixin);
 
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
+export function createApp() {
+  const store = createStore();
+  const router = createRouter();
+
+  const app = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  });
+
+  return { app, router, store };
+}
