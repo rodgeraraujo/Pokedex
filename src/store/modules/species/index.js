@@ -4,12 +4,16 @@ import { FETCH_POKEMON_SPECIES } from "@/store/type/actions";
 import { SET_POKEMON_SPECIES } from "@/store/type/mutations";
 
 const state = {
-  pokemonSpecie: {}
+  pokemonSpecie: {},
+  isFetched: false
 };
 
 const getters = {
   pokemonSpecie(state) {
     return state.pokemonSpecie;
+  },
+  isFetched(state) {
+    return state.isFetched;
   }
 };
 
@@ -30,6 +34,7 @@ const actions = {
 const mutations = {
   [SET_POKEMON_SPECIES](state, { pokemonSpecie }) {
     state.pokemonSpecie = pokemonSpecie;
+    state.isFetched = true;
   }
 };
 

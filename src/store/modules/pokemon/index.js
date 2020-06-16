@@ -12,8 +12,9 @@ import {
 } from "@/store/type/mutations";
 
 const state = {
-  pokemon: [],
+  pokemonList: [],
   isLoading: true,
+  isPokemon: false,
   pokemonCount: 0,
   pokemonDescription: {}
 };
@@ -22,7 +23,7 @@ const getters = {
   pokemonCount(state) {
     return state.pokemonCount;
   },
-  pokemon(state) {
+  pokemonList(state) {
     return state.pokemon;
   },
   isLoading(state) {
@@ -30,6 +31,9 @@ const getters = {
   },
   pokemonDescription(state) {
     return state.pokemonDescription;
+  },
+  isPokemon(state) {
+    return state.isPokemon;
   }
 };
 
@@ -38,7 +42,7 @@ const actions = {
     return PokemonService.get()
       .then(({ data }) => {
         commit(SET_POKEMON, {
-          pokemon: data.results,
+          pokemonList: data.results,
           pokemonCount: data.count
         });
       })
@@ -58,12 +62,10 @@ const actions = {
       });
   },
   [FETCH_POKEMON_QUERY]({ commit }, params) {
-    console.log(params.offset, params.limit);
-
     return PokemonService.query(params.offset, params.limit)
       .then(({ data }) => {
         commit(SET_POKEMON_QUERY, {
-          pokemon: data.results
+          pokemonList: data.results
         });
       })
       .catch(error => {
@@ -73,16 +75,17 @@ const actions = {
 };
 
 const mutations = {
-  [SET_POKEMON](state, { pokemon, pokemonCount }) {
-    state.pokemon = pokemon;
+  [SET_POKEMON](state, { pokemonList, pokemonCount }) {
+    state.pokemonList = pokemonList;
     state.pokemonCount = pokemonCount;
     state.isLoading = false;
   },
   [SET_POKEMON_DESCRIPTION](state, { pokemonDescription }) {
     state.pokemonDescription = pokemonDescription;
+    state.isPokemon = true;
   },
-  [SET_POKEMON_QUERY](state, { pokemon }) {
-    state.pokemon.push(...pokemon);
+  [SET_POKEMON_QUERY](state, { pokemonList }) {
+    state.pokemonList.push(...pokemonList);
   }
 };
 
