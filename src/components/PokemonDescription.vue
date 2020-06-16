@@ -25,9 +25,13 @@ export default {
     methods: {
         fetchPokemonSpecie(slug) {
             this.$store.dispatch(FETCH_POKEMON_SPECIES, slug);
+            return this;
         },
         getRandomDescription() {
-            if (this.pokemonSpecie === null) {
+            if (
+                this.pokemonSpecie.flavor_text_entries === undefined ||
+                this.pokemonSpecie.flavor_text_entries === null
+            ) {
                 return;
             }
 
