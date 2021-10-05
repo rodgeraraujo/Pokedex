@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/rodgeraraujo/pokedex#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "colorthief": "^2.3.0",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
