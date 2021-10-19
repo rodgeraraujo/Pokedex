@@ -11,13 +11,13 @@
                             @load="cardBackground()"
                             crossorigin="anonymous"
                             ref="picture"
-                            :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
+                            :src="`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${(getPokemonId())}.png`"
                             alt="pokemon"
                         />
                     </div>
                     <div
                         class="card-level card-level--pokemon"
-                    >#{{ ('000'+pokemonDetails.id).slice(-'000'.length)}}</div>
+                    >#{{ getPokemonId() }}</div>
                     <div class="unit-name">{{pokemonDetails.name}}</div>
                     <ul class="types">
                         <TypeBadge
@@ -108,6 +108,7 @@ import ColorThief from "colorthief";
 import { FETCH_POKEMON_DESCRIPTION } from "@/store/type/actions";
 
 import conversions from "@/util/units";
+import { formatingPokemonId } from "@/util";
 
 import Layout from "@/layouts/Layout";
 
@@ -176,6 +177,9 @@ export default {
                 height
             );
             return this;
+        },
+        getPokemonId() {
+            return formatingPokemonId(this.pokemonDetails.id);
         }
     }
 };

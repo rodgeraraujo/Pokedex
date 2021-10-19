@@ -11,7 +11,7 @@
                         width="10"
                         :alt="pokemonDetails.name"
                         @load="adaptativeBackground()"
-                        :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
+                        :src="`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${getPokemonId()}.png`"
                     />
                     <figcaption>
                         <strong>{{ pokemonDetails.name }}</strong>
@@ -33,6 +33,7 @@
 import ColorThief from "colorthief";
 
 import { PokemonDescriptionService } from "@/services/api";
+import { formatingPokemonId } from "@/util";
 
 import TypeBadge from "@/components/TypeBadge";
 
@@ -67,6 +68,9 @@ export default {
             var color = colorThief.getColor(this.$refs["picture"]);
             this.pokemonColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
             this.renderComponent = true;
+        },
+        getPokemonId() {
+            return formatingPokemonId(this.pokemonDetails.id);
         }
     }
 };
