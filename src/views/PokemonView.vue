@@ -11,7 +11,7 @@
                             @load="cardBackground()"
                             crossorigin="anonymous"
                             ref="picture"
-                            :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
+                            :src="`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${('00'+pokemonDetails.id).slice(-'000'.length)}.png`"
                             alt="pokemon"
                         />
                     </div>
@@ -134,6 +134,7 @@ export default {
     },
     computed: {
         pokemonDetails() {
+            console.log("meulogao====",this.$store.state.pokemon.pokemonDescription)
             return this.$store.state.pokemon.pokemonDescription;
         },
         isPokemon() {

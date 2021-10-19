@@ -11,7 +11,7 @@
                         width="10"
                         :alt="pokemonDetails.name"
                         @load="adaptativeBackground()"
-                        :src="`https://pokeres.bastionbot.org/images/pokemon/${ pokemonDetails.id }.png`"
+                        :src="`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${('00'+pokemonDetails.id).slice(-'000'.length)}.png`"
                     />
                     <figcaption>
                         <strong>{{ pokemonDetails.name }}</strong>
