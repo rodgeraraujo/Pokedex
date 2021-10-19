@@ -134,7 +134,6 @@ export default {
     },
     computed: {
         pokemonDetails() {
-            console.log("meulogao====",this.$store.state.pokemon.pokemonDescription)
             return this.$store.state.pokemon.pokemonDescription;
         },
         isPokemon() {
