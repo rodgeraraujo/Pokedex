@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/pokedex-logo.png" align="center" width="60%"/>
+  <img src="assets/pokedex-logo.png" align="center" width="60%"/>
 <br />
 A simple Web Pokedex made using vuejs + vuex, router and more.
 </p>
@@ -24,7 +24,7 @@ A simple Web Pokedex made using vuejs + vuex, router and more.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/924e63e4-fedf-40e7-8aac-e434d5e049b3/deploy-status)](https://app.netlify.com/sites/web-pokedex/deploys)
 
-<img src=".github/mobile2.gif" align="right" width="32%"/>
+<img src="assets/mobile2.gif" align="right" width="32%"/>
 
 ## Features
 
@@ -45,7 +45,7 @@ A simple Web Pokedex made using vuejs + vuex, router and more.
 
 ## Data API
 
-<img src=".github/pokeapi.png" align="right" width="21%"/>
+<img src="assets/pokeapi.png" align="right" width="21%"/>
 
 <strong>Pokedex!</strong> uses the [PokeAPI](https://pokeapi.co/) for consuming RESTful API.
 
